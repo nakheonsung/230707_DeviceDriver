@@ -30,10 +30,19 @@ int DeviceDriver::read(long address)
     return nRead;
 }
 
-void DeviceDriver::write(long address, int data)
+bool DeviceDriver::IsWritable(long address)
 {
     static const int CLEAN_READ = 0xFF;
-    if (CLEAN_READ != (int)m_hardware->read(address))
+	if (CLEAN_READ != (int)m_hardware->read(address))
+	{
+        return false;
+	}
+    return true;
+}
+
+void DeviceDriver::write(long address, int data)
+{
+    if (IsWritable(address) == false)
     {
         throw exception("WriteFailException, Must be clean (0xFF)");
     }
