@@ -35,7 +35,7 @@ bool DeviceDriver::IsWritable(long address)
     static const int CLEAN_READ = 0xFF;
 	if (CLEAN_READ != (int)m_hardware->read(address))
 	{
-        return false;
+		return false;
 	}
     return true;
 }
