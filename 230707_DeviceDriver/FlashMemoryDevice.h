@@ -3,9 +3,21 @@
  * However, the interface for using the device is a lot more complex than that. It is outlined in the top-level README file.
  */
 
-class FlashMemoryDevice
+class IFlashMemoryDevice
 {
 public:
     virtual unsigned char read(long address) = 0;
     virtual void write(long address, unsigned char data) = 0;
+};
+
+class FlashMemoryDevice : IFlashMemoryDevice
+{
+public:
+    virtual unsigned char read(long address) override
+    {
+        return 0;
+    }
+    virtual void write(long address, unsigned char data) override
+    {
+    }
 };
