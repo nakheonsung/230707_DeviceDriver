@@ -24,13 +24,26 @@ int DeviceDriver::read(long address)
     int nRead = (int)m_hardware->read(address);
     if (!ReadValidCheck(nRead, address))
     {
-        throw logic_error("Must be same Number in 5 Times");
+        throw exception("ReadFailException, Must be same Number in 5 Times");
     }
     return nRead;
 }
 
+bool DeviceDriver::IsWritable(long address)
+{
+    static const int CLEAN_READ = 0xFF;
+	if (CLEAN_READ != (int)m_hardware->read(address))
+	{
+		return false;
+	}
+    return true;
+}
+
 void DeviceDriver::write(long address, int data)
 {
-    // TODO: implement this method
+    if (IsWritable(address) == false)
+    {
+        throw exception("WriteFailException, Must be clean (0xFF)");
+    }
     m_hardware->write(address, (unsigned char)data);
 }

@@ -40,5 +40,25 @@ TEST(TestCaseName, ReadNotSame5Times) {
 		.WillRepeatedly(Return(0xFF));
 
 	DeviceDriver DD(&HWMock);
-	EXPECT_THROW(DD.read(0x1), logic_error);
+	EXPECT_THROW(DD.read(0x1), exception);
+}
+
+TEST(TestCaseName, HardwareMockTestWrite) {
+	HardwareMock HWMock;
+	EXPECT_CALL(HWMock, read(0x1))
+		.Times(1)
+		.WillRepeatedly(Return(0xFF));
+
+	DeviceDriver DD(&HWMock);
+	DD.write(0x1, 0xA);
+}
+
+TEST(TestCaseName, WriteNotClean) {
+	HardwareMock HWMock;
+	EXPECT_CALL(HWMock, read(0x1))
+		.Times(1)
+		.WillRepeatedly(Return(0xA));
+
+	DeviceDriver DD(&HWMock);
+	EXPECT_THROW(DD.write(0x1, 0xA), exception);
 }
