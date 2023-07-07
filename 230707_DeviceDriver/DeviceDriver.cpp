@@ -37,6 +37,5 @@ void DeviceDriver::write(long address, int data)
     {
         throw exception("WriteFailException, Must be clean (0xFF)");
     }
-	m_hardware->write(address, (unsigned char)data);
-    
+    m_hardware->write(address, (unsigned char)data);
 }
