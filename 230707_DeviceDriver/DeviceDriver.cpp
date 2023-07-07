@@ -32,8 +32,8 @@ int DeviceDriver::read(long address)
 
 void DeviceDriver::write(long address, int data)
 {
-    // TODO: implement this method
-    if (0xFF != (int)m_hardware->read(address))
+    static const int CLEAN_READ = 0xFF;
+    if (CLEAN_READ != (int)m_hardware->read(address))
     {
         throw exception("WriteFailException, Must be clean (0xFF)");
     }
