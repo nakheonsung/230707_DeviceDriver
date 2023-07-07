@@ -21,7 +21,6 @@ bool DeviceDriver::ReadValidCheck(int nFirstRead, long address)
 
 int DeviceDriver::read(long address)
 {
-    // TODO: implement this method properly
     int nRead = (int)m_hardware->read(address);
     if (!ReadValidCheck(nRead, address))
     {
