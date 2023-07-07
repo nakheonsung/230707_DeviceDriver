@@ -1,4 +1,3 @@
-#pragma once
 #include "FlashMemoryDevice.h"
 
 class DeviceDriver
@@ -10,4 +9,4 @@ public:
 
 protected:
     FlashMemoryDevice* m_hardware;
-}; #pragma once
+};
