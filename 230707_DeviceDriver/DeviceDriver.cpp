@@ -25,7 +25,7 @@ int DeviceDriver::read(long address)
     int nRead = (int)m_hardware->read(address);
     if (!ReadValidCheck(nRead, address))
     {
-        throw logic_error("Must be same Number in 5 Times");
+        throw exception("ReadFailException, Must be same Number in 5 Times");
     }
     return nRead;
 }
@@ -33,5 +33,10 @@ int DeviceDriver::read(long address)
 void DeviceDriver::write(long address, int data)
 {
     // TODO: implement this method
-    m_hardware->write(address, (unsigned char)data);
+    if (0xFF != (int)m_hardware->read(address))
+    {
+        throw exception("WriteFailException, Must be clean (0xFF)");
+    }
+	m_hardware->write(address, (unsigned char)data);
+    
 }
